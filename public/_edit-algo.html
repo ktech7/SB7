@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- For IE 9 and below. ICO should be 32x32 pixels in size -->
+    <!--[if IE]><link rel="shortcut icon" href="/favicon.ico"><![endif]-->
+
+    <!-- Touch Icons - iOS and Android 2.1+ 180x180 pixels in size. -->
+    <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon-precomposed.png">
+
+    <!-- Firefox, Chrome, Safari, IE 11+ and Opera. 196x196 pixels in size. -->
+    <link rel="icon" href="/favicon.png">
+    
+    <title>Edit Algorithm - Voter</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/info-pages.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><img src="/img/voter-32.png"></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Dashboard</a></li>
+            <li><a href="https://github.com/Steem-FOSSbot/steem-fossbot-voter">Source</a></li>
+            <li><a href="https://github.com/Steem-FOSSbot/steem-fossbot-voter/blob/master/docs/index.md">Docs</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <h1 class="page-header">Edit Algorithm</h1>
+      <!--h2 class="sub-header">Message</h2-->
+      <div class="row">
+        <div class="col-sm-4">
+          <form class="form-add" action="/edit-algo" method="post">
+            <label for="inputKey" class="sr-only">Key</label>
+            <input type="text" name="key" id="inputKey" class="form-control" placeholder="Key" required autofocus>
+            <label for="inputWeight" class="sr-only">Weight</label>
+            <input type="number" step="0.01" name="weight" id="inputWeight" class="form-control" placeholder="Weight" required>
+            <label for="inputLower" class="sr-only">Lower bound(optional)</label>
+            <input type="number" name="lower" id="inputLower" class="form-control" placeholder="Lower bound(optional)">
+            <label for="inputUpper" class="sr-only">Upper bound (optional)</label>
+            <input type="number" name="upper" id="inputUpper" class="form-control" placeholder="Upper bound (optional)">
+            <button class="btn btn-lg btn-primary btn-block" type="submit" value="POST">Add Rule</button>
+          </form>
+        </div>
+      </div>
+
+      <h2 class="sub-header">Rules</h2>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Key</th>
+              <th>Value</th>
+              <th>Lower</th>
+              <th>Upper</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!--tr>
+              <td>None</td>
+              <td></td>
+              <td>-</td>
+              <td>-</td>
+              <th><p><a class="btn btn-default" href="#" role="button"><strike>Delete<strike></a></p></th>
+            </tr-->
+            <!--tr>
+              <td>test key 1</td>
+              <td>test val 1</td>
+              <td>-</td>
+              <td>-</td>
+              <th><p><a class="btn btn-default" href="#" role="button">Delete</a></p></th>
+            </tr>
+            <tr>
+              <td>test key 2</td>
+              <td>test val 2</td>
+              <td>500</td>
+              <td>2000</td>
+              <th><p><a class="btn btn-default" href="#" role="button">Delete</a></p></th>
+            </tr-->
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="sub-header">Edit lists</h2>
+      <div class="row">
+        <p><italic>Separate terms with spaces only</italic></p>
+        <!--div class="col-sm-4"> 
+          <form class="form-list" action="/edit-algo">
+            <label for="inputKey" class="sr-only"></label>
+            <textarea name="author_whitelist" cols="60" rows="3"></textarea>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" value="POST">Update Author whitelist</button>
+          </form>
+        </div>
+        <div class="col-sm-4">
+          <form class="form-list" action="/edit-algo">
+            <label for="inputKey" class="sr-only"></label>
+            <textarea name="author_blacklist" cols="60" rows="3"></textarea>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" value="POST">Update Author blacklist</button>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <form class="form-list" action="/edit-algo">
+            <label for="inputKey" class="sr-only"></label>
+            <textarea name="content_category_whitelist" cols="60" rows="3"></textarea>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" value="POST">Update Content Category whitelist</button>
+          </form>
+        </div>
+        <div class="col-sm-4">
+          <form class="form-list" action="/edit-algo">
+            <label for="inputKey" class="sr-only"></label>
+            <textarea name="content_category_blacklist" cols="60" rows="3"></textarea>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" value="POST">Update Content Category blacklist</button>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <form class="form-list" action="/edit-algo">
+            <label for="inputKey" class="sr-only"></label>
+            <textarea name="content_word_whitelist" cols="60" rows="3"></textarea>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" value="POST">Update Content Word whitelist</button>
+          </form>
+        </div>
+        <div class="col-sm-4">
+          <form class="form-list" action="/edit-algo">
+            <label for="inputKey" class="sr-only"></label>
+            <textarea name="content_word_blacklist" cols="60" rows="3"></textarea>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" value="POST">Update Content Word blacklist</button>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <form class="form-list" action="/edit-algo">
+            <label for="inputKey" class="sr-only"></label>
+            <textarea name="domain_whitelist" cols="60" rows="3"></textarea>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" value="POST">Update Domain whitelist</button>
+          </form>
+        </div>
+        <div class="col-sm-4">
+          <form class="form-list" action="/edit-algo">
+            <label for="inputKey" class="sr-only"></label>
+            <textarea name="domain_blacklist" cols="60" rows="3"></textarea>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" value="POST">Update Domain blacklist</button>
+          </form>
+        </div-->
+      </div>
+
+      <div class="container-fluid">
+        <h1 class="page-header">Export / Import Algorithm</h1>
+        <!--h2 class="sub-header">Message</h2-->
+        <div class="row">
+          <form class="form-list" action="/edit-algo" method="post">
+            <p><a class="btn btn-lg btn-primary btn-block" role="button" href="javascript:exportAlgo()">Export Current Algorithm</a></p>
+            <label for="inputKey" class="sr-only"></label>
+            <textarea name="json_algo" id="json_algo" cols="150" rows="10"></textarea>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" value="POST">Import This Algorithm</button>
+          </form>
+        </div>
+      </div>
+
+      <h2 class="sub-header">Keys Reference</h2>
+      <p>See the <a href="https://github.com/Steem-FOSSbot/steem-fossbot-voter/blob/develop/docs/algorithm.md">algorithm and metrics docs</a> for more details</p>
+      <p>Note that all boolean data types are intepreted numerically as false = 0, true = 1</p>
+      <h4>Click on the key to begin adding it as a metric</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Key</th>
+              <th>Category</th>
+              <th>Sub Category</th>
+              <th>Data Type *</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Strategic metrics -->
+            <!-- bot owner -->
+            <tr>
+              <td><a href="javascript:selectKey('owner_num_votes_today')">owner_num_votes_today</a></td>
+              <td>Strategic</td>
+              <td>Bot Owner</td>
+              <td>Numeric</td>
+              <th><p>Number of votes today</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('owner_last_post_time')">owner_last_post_time</a></td>
+              <td>Strategic</td>
+              <td>Bot Owner</td>
+              <td>Numeric</td>
+              <th><p>Time since last post in minutes</p></th>
+            </tr>
+            <!-- post -->
+            <tr>
+              <td><a href="javascript:selectKey('post_alive_time')">post_alive_time</a></td>
+              <td>Strategic</td>
+              <td>Post</td>
+              <td>Numeric</td>
+              <th><p>Time since post, in minutes</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_est_payout')">post_est_payout</a></td>
+              <td>Strategic</td>
+              <td>Post</td>
+              <td>Numeric</td>
+              <th><p>Estimated payout</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_num_upvotes')">post_num_upvotes</a></td>
+              <td>Strategic</td>
+              <td>Post</td>
+              <td>Numeric</td>
+              <th><p>Number of up votes (normal votes _for_ a post)</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_num_downvotes')">post_num_downvotes</a></td>
+              <td>Strategic</td>
+              <td>Post</td>
+              <td>Numeric</td>
+              <th><p>Number of downvotes / flags</p></th>
+            </tr>
+            <!-- post details -->
+            <!-- numeric -->
+            <tr>
+              <td><a href="javascript:selectKey('post_up_voted_num_dolphin')">post_up_voted_num_dolphin</a></td>
+              <td>Strategic</td>
+              <td>Post Detail</td>
+              <td>Numeric</td>
+              <th><p>Number of voters with capital category dolphin who <strong>up</strong> voted on post</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_up_voted_num_whale')">post_up_voted_num_whale</a></td>
+              <td>Strategic</td>
+              <td>Post Detail</td>
+              <td>Numeric</td>
+              <th><p>Number of voters with capital category whale who <strong>up</strong> voted on post</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_up_voted_num_followed')">post_up_voted_num_followed</a></td>
+              <td>Strategic</td>
+              <td>Post Detail</td>
+              <td>Numeric</td>
+              <th><p>Number of followed voters who <strong>up</strong> voted on post</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_up_voted_num_whitelisted')">post_up_voted_num_whitelisted</a></td>
+              <td>Strategic</td>
+              <td>Post Detail</td>
+              <td>Numeric</td>
+              <th><p>Number of whitelisted voters who <strong>up</strong> voted on post</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_up_voted_num_blacklisted')">post_up_voted_num_blacklisted</a></td>
+              <td>Strategic</td>
+              <td>Post Detail</td>
+              <td>Numeric</td>
+              <th><p>Number of blacklisted voters who <strong>up</strong> voted on post</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_down_voted_num_dolphin')">post_down_voted_num_dolphin</a></td>
+              <td>Strategic</td>
+              <td>Post Detail</td>
+              <td>Numeric</td>
+              <th><p>Number of voters with capital category dolphin who <strong>down</strong> voted on post</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_down_voted_num_whale')">post_down_voted_num_whale</a></td>
+              <td>Strategic</td>
+              <td>Post Detail</td>
+              <td>Numeric</td>
+              <th><p>Number of voters with capital category whale who <strong>down</strong> voted on post</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_down_voted_num_followed')">post_down_voted_num_followed</a></td>
+              <td>Strategic</td>
+              <td>Post Detail</td>
+              <td>Numeric</td>
+              <th><p>Number of followed voters who <strong>down</strong> voted on post</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_down_voted_num_whitelisted')">post_down_voted_num_whitelisted</a></td>
+              <td>Strategic</td>
+              <td>Post Detail</td>
+              <td>Numeric</td>
+              <th><p>Number of whitelisted voters who <strong>down</strong> voted on post</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_down_voted_num_blacklisted')">post_down_voted_num_blacklisted</a></td>
+              <td>Strategic</td>
+              <td>Post Detail</td>
+              <td>Numeric</td>
+              <th><p>Number of blacklisted voters who <strong>down</strong> voted on post</p></th>
+            </tr>
+            <!-- boolean -->
+            <tr>
+              <td><a href="javascript:selectKey('post_up_voted_any_dolphin')">post_up_voted_any_dolphin</a></td>
+              <td>Strategic</td>
+              <td>Post Detail</td>
+              <td>Boolean</td>
+              <th><p>At least one voter with capital category dolphin <strong>up</strong> voted on post</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_up_voted_any_whale')">post_up_voted_any_whale</a></td>
+              <td>Strategic</td>
+              <td>Post Detail</td>
+              <td>Boolean</td>
+              <th><p>At least one voter with capital category whale <strong>up</strong>  voted on post</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_up_voted_any_followed')">post_up_voted_any_followed</a></td>
+              <td>Strategic</td>
+              <td>Post Detail</td>
+              <td>Boolean</td>
+              <th><p> At least one followed voter <strong>up</strong> voted on post</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_up_voted_any_whitelisted')">post_up_voted_any_whitelisted</a></td>
+              <td>Strategic</td>
+              <td>Post Detail</td>
+              <td>Boolean</td>
+              <th><p>At least one whitelist voter <strong>up</strong> voted on post</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_up_voted_any_blacklisted')">post_up_voted_any_blacklisted</a></td>
+              <td>Strategic</td>
+              <td>Post Detail</td>
+              <td>Boolean</td>
+              <th><p>At least one blacklist voter <strong>up</strong> voted on post</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_down_voted_any_dolphin')">post_down_voted_any_dolphin</a></td>
+              <td>Strategic</td>
+              <td>Post Detail</td>
+              <td>Boolean</td>
+              <th><p>At least one voter with capital category dolphin <strong>down</strong> voted on post</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_down_voted_any_whale')">post_down_voted_any_whale</a></td>
+              <td>Strategic</td>
+              <td>Post Detail</td>
+              <td>Boolean</td>
+              <th><p>At least one voter with capital category whale <strong>down</strong> voted on post</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_down_voted_any_followed')">post_down_voted_any_followed</a></td>
+              <td>Strategic</td>
+              <td>Post Detail</td>
+              <td>Boolean</td>
+              <th><p> At least one followed voter <strong>down</strong> voted on post</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_down_voted_any_whitelisted')">post_down_voted_any_whitelisted</a></td>
+              <td>Strategic</td>
+              <td>Post Detail</td>
+              <td>Boolean</td>
+              <th><p>At least one whitelist voter <strong>down</strong> voted on post</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_down_voted_any_blacklisted')">post_down_voted_any_blacklisted</a></td>
+              <td>Strategic</td>
+              <td>Post Detail</td>
+              <td>Boolean</td>
+              <th><p>At least one blacklist voter <strong>down</strong> voted on post</p></th>
+            </tr>
+            <!-- post details -->
+            <!-- numeric -->
+            <tr>
+              <td><a href="javascript:selectKey('author_capital_val')">author_capital_val</a></td>
+              <td>Strategic</td>
+              <td>Author of Post</td>
+              <td>Numeric</td>
+              <th><p>Capital (Steem Power) by value</p></th>
+            </tr>
+            <!-- boolean -->
+            <tr>
+              <td><a href="javascript:selectKey('author_is_minnow')">author_is_minnow</a></td>
+              <td>Strategic</td>
+              <td>Author of Post</td>
+              <td>Boolean</td>
+              <th><p>Capital category is minnow</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('author_is_dolphin')">author_is_dolphin</a></td>
+              <td>Strategic</td>
+              <td>Author of Post</td>
+              <td>Boolean</td>
+              <th><p>Capital category is dolphin</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('author_is_whale')">author_is_whale</a></td>
+              <td>Strategic</td>
+              <td>Author of Post</td>
+              <td>Boolean</td>
+              <th><p>Capital category is whale</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('author_is_followed')">author_is_followed</a></td>
+              <td>Strategic</td>
+              <td>Author of Post</td>
+              <td>Boolean</td>
+              <th><p>Author is followed</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('author_is_whitelisted')">author_is_whitelisted</a></td>
+              <td>Strategic</td>
+              <td>Author of Post</td>
+              <td>Boolean</td>
+              <th><p>Presence of author on whitelist</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('author_is_blacklisted')">author_is_blacklisted</a></td>
+              <td>Strategic</td>
+              <td>Author of Post</td>
+              <td>Boolean</td>
+              <th><p>Presence of author on blacklist</p></th>
+            </tr>
+            <!-- Cultural metrics -->
+            <!-- Content text -->
+            <tr>
+              <td><a href="javascript:selectKey('post_num_chars')">post_num_chars</a></td>
+              <td>Cultural</td>
+              <td>Content text</td>
+              <td>Numeric</td>
+              <th><p>Post length in characters</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_num_words')">post_num_words</a></td>
+              <td>Cultural</td>
+              <td>Content text</td>
+              <td>Numeric</td>
+              <th><p>Post length in words</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_sentiment_val')">post_sentiment_val</a></td>
+              <td>Cultural</td>
+              <td>Content text</td>
+              <td>Numeric</td>
+              <th><p>Sentiment / emotional score</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_num_tags_whitelisted')">post_num_tags_whitelisted</a></td>
+              <td>Cultural</td>
+              <td>Content text</td>
+              <td>Numeric</td>
+              <th><p>Number of whitelisted tags (uses content word lists)</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_num_tags_blacklisted')">post_num_tags_blacklisted</a></td>
+              <td>Cultural</td>
+              <td>Content text</td>
+              <td>Numeric</td>
+              <th><p>Number of blacklisted tags (uses content word lists)</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_num_keywords_whitelisted')">post_num_keywords_whitelisted</a></td>
+              <td>Cultural</td>
+              <td>Content text</td>
+              <td>Numeric</td>
+              <th><p>Number of unique whitelisted keywords</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_num_keywords_blacklisted')">post_num_keywords_blacklisted</a></td>
+              <td>Cultural</td>
+              <td>Content text</td>
+              <td>Numeric</td>
+              <th><p>Number of unique blacklisted keywords</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_num_words_whitelisted')">post_num_words_whitelisted</a></td>
+              <td>Cultural</td>
+              <td>Content text</td>
+              <td>Numeric</td>
+              <th><p>Number of unique whitelist words in entire content text</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_num_words_blacklisted')">post_num_words_blacklisted</a></td>
+              <td>Cultural</td>
+              <td>Content text</td>
+              <td>Numeric</td>
+              <th><p>Number of unique blacklist words in entire content text</p></th>
+            </tr>
+            <!-- boolean -->
+            <tr>
+              <td><a href="javascript:selectKey('post_category_whitelisted')">post_category_whitelisted</a></td>
+              <td>Cultural</td>
+              <td>Content text</td>
+              <td>Boolean</td>
+              <th><p>Category (sub-steem) on whitelist</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_category_blacklisted')">post_category_blacklisted</a></td>
+              <td>Cultural</td>
+              <td>Content text</td>
+              <td>Boolean</td>
+              <th><p>Category (sub-steem) on blacklist</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_any_tag_whitelisted')">post_any_tag_whitelisted</a></td>
+              <td>Cultural</td>
+              <td>Content text</td>
+              <td>Boolean</td>
+              <th><p>Any tag on whitelist</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_any_tag_blacklisted')">post_any_tag_blacklisted</a></td>
+              <td>Cultural</td>
+              <td>Content text</td>
+              <td>Boolean</td>
+              <th><p>Any tag on blacklist</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_any_keyword_whitelisted')">post_any_keyword_whitelisted</a></td>
+              <td>Cultural</td>
+              <td>Content text</td>
+              <td>Boolean</td>
+              <th><p>Any keyword on whitelist</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_any_keyword_blacklisted')">post_any_keyword_blacklisted</a></td>
+              <td>Cultural</td>
+              <td>Content text</td>
+              <td>Boolean</td>
+              <th><p>Any keyword on blacklist</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_has_english_language_use')">post_has_english_language_use</a></td>
+              <td>Cultural</td>
+              <td>Content text</td>
+              <td>Boolean</td>
+              <th><p>Significant amount of English language use</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_has_german_language_use')">post_has_german_language_use</a></td>
+              <td>Cultural</td>
+              <td>Content text</td>
+              <td>Boolean</td>
+              <th><p>Significant amount of German language use</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_has_spanish_language_use')">post_has_spanish_language_use</a></td>
+              <td>Cultural</td>
+              <td>Content text</td>
+              <td>Boolean</td>
+              <th><p>Significant amount of Spanish language use</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_has_french_language_use')">post_has_french_language_use</a></td>
+              <td>Cultural</td>
+              <td>Content text</td>
+              <td>Boolean</td>
+              <th><p>Significant amount of French language use</p></th>
+            </tr>
+            <!-- Content link -->
+            <!-- numeric -->
+            <tr>
+              <td><a href="javascript:selectKey('post_num_links_video')">post_num_links_video</a></td>
+              <td>Cultural</td>
+              <td>Content links</td>
+              <td>Numeric</td>
+              <th><p>Number of video links</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_num_links_image')">post_num_links_image</a></td>
+              <td>Cultural</td>
+              <td>Content links</td>
+              <td>Numeric</td>
+              <th><p>Number of image links</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_num_links_page')">post_num_links_page</a></td>
+              <td>Cultural</td>
+              <td>Content links</td>
+              <td>Numeric</td>
+              <th><p>Number of webpage links</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_num_links_total')">post_num_links_total</a></td>
+              <td>Cultural</td>
+              <td>Content links</td>
+              <td>Numeric</td>
+              <th><p>Total number of links</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_num_link_domains_whitelisted')">post_num_link_domains_whitelisted</a></td>
+              <td>Cultural</td>
+              <td>Content links</td>
+              <td>Numeric</td>
+              <th><p>Number of link domains on whitelist</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_num_link_domains_blacklisted')">post_num_link_domains_blacklisted</a></td>
+              <td>Cultural</td>
+              <td>Content links</td>
+              <td>Numeric</td>
+              <th><p>Number of link domains on blacklist</p></th>
+            </tr>
+            <!-- boolean -->
+            <tr>
+              <td><a href="javascript:selectKey('post_any_link_domains_whitelisted')">post_any_link_domains_whitelisted</a></td>
+              <td>Cultural</td>
+              <td>Content links</td>
+              <td>Boolean</td>
+              <th><p>Any link domains on whitelist</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_any_link_domains_blacklisted')">post_any_link_domains_blacklisted</a></td>
+              <td>Cultural</td>
+              <td>Content links</td>
+              <td>Boolean</td>
+              <th><p>Any link domains on blacklist</p></th>
+            </tr>
+            <!-- Author -->
+            <!-- numeric -->
+            <tr>
+              <td><a href="javascript:selectKey('author_repuation')">author_repuation</a></td>
+              <td>Cultural</td>
+              <td>Author</td>
+              <td>Numeric</td>
+              <th><p>Reputation (Stemit version, not direct from blockchain)</p></th>
+            </tr>
+            <!-- Content complex -->
+            <!-- boolean -->
+            <tr>
+              <td><a href="javascript:selectKey('post_very_short')">post_very_short</a></td>
+              <td>Cultural</td>
+              <td>Content complex</td>
+              <td>Boolean</td>
+              <th><p>Post has negligible text content with no links</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_images_only')">post_images_only</a></td>
+              <td>Cultural</td>
+              <td>Content complex</td>
+              <td>Boolean</td>
+              <th><p>Post has negligible text content and mainly images</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_videos_only')">post_videos_only</a></td>
+              <td>Cultural</td>
+              <td>Content complex</td>
+              <td>Boolean</td>
+              <th><p>Post has negligible text content and mainly videos</p></th>
+            </tr>
+            <tr>
+              <td><a href="javascript:selectKey('post_mixed_links_only')">post_mixed_links_only</a></td>
+              <td>Cultural</td>
+              <td>Content complex</td>
+              <td>Boolean</td>
+              <th><p>Post has negligible text content and a mix of link types</p></th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/editalgo.js"></script>
+  </body>
+</html>
